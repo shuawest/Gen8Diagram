@@ -11,13 +11,17 @@ RUN pip install jinja2-cli
 
 # Copy the Flask app to the container
 WORKDIR /app
+
 COPY app.py .
+RUN mkdir /app/static
+RUN mkdir /app/templates
+COPY default.yaml .
 COPY letter.svg.j2 .
 COPY slide.svg.j2 .
-
-
-# # Set Inkscape as the default entrypoint
-# ENTRYPOINT ["inkscape"]
+COPY static/layers.ico /app/static/layers.ico
+COPY static/layers.png /app/static/layers.png
+COPY static/styles.css /app/static/styles.css
+COPY templates/index.html /app/templates/index.html
 
 # Expose the Flask app's port
 EXPOSE 5050
