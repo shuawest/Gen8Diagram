@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gen8Diagram</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='layers.ico') }}">
+
+    <!-- Optional: Add your custom stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- PatternFly 5 Stylesheet -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@patternfly/patternfly@5/patternfly.css">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+    <div class="pf-c-page">
+        <div id="flyover-alert-container" class="pf-c-alert-group" style="position: fixed; top: 16px; right: 16px; z-index: 1050;"></div>
+        <header class="pf-c-page__header">
+            <div class="pf-c-page__header-brand">
+                <div class="pf-c-title pf-m-2xl" style="display: flex; align-items: center;">
+                    <img src="{{ url_for('static', filename='layers.png') }}" height="40px" width="40px" alt="Icon" class="header-icon" />
+                    <span style="margin-left: 8px;">Gen8Diagram - Template Based Diagram Generator</span>
+                </div>
+            </div>
+        </header>
+        <main class="pf-c-page__main">
+            <div class="left-pane">
+                <form id="form" class="pf-c-form">
+                    <!-- Render Button -->
+                    <div class="pf-c-form__group">
+                        <button id="render-btn" type="button" class="pf-c-button pf-m-primary" style="width: 100%;">Render</button>
+                    </div>
+    
+                    <!-- YAML and Template Editors -->
+                    <div class="pf-c-form__group">
+                        <label for="yaml-selector" class="pf-c-form__label">
+                            <span class="pf-c-form__label-text">Input Context YAML:</span>
+                        </label>
+                    </div>
+                    <div class="pf-c-form__group">
+                        <select id="yaml-selector" class="pf-c-form-control">
+                            {% for file in yaml_files %}
+                            <option value="{{ file }}" {% if file == default_yaml %}selected{% endif %}>
+                                {{ file }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <input id="yaml-name" class="pf-c-form-control" value="{{ default_yaml.split('.')[0] }}" />
+                    </div>
+                    <div class="pf-c-form__group">
+                        <div id="yaml-editor" class="editor"></div>
+                    </div>
+                    <div class="pf-c-form__group">
+                        <label for="template-selector" class="pf-c-form__label">
+                            <span class="pf-c-form__label-text">Diagram SVG Jinja2 Template:</span>
+                        </label>
+                    </div>
+                    <div class="pf-c-form__group">
+                        <select id="template-selector" class="pf-c-form-control">
+                            {% for file in template_files %}
+                            <option value="{{ file }}" {% if file == default_template %}selected{% endif %}>
+                                {{ file }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <input id="template-name" class="pf-c-form-control" value="{{ default_template.split('.')[0] }}" />
+                    </div>
+                    <div class="pf-c-form__group">
+                        <div id="template-editor" class="editor"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="right-pane">
+                <iframe id="output-iframe" src="/output.png" title="Rendered Output"></iframe>
+            </div>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/mode-yaml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script> -->
+    <!-- <script src="{{ url_for('static', filename='scripts.js') }}"></script> -->
+    <script> 
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const alertContainer = document.getElementById("flyover-alert-container");
+
+            // Function to show a flyover alert
+            function showFlyoverAlert(errorMessage) {
+                const alertId = `alert-${Date.now()}`; // Unique ID for each alert
+                const alertHTML = `
+                    <div id="${alertId}" class="pf-v5-c-alert pf-m-danger" aria-label="Danger alert">
+                        <div class="pf-c-alert__icon">
+                            <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
+                        </div>
+                        <p class="pf-v5-c-alert__title">
+                            <span class="pf-v5-screen-reader">Danger alert:</span>
+                            <span>${errorMessage}</span>
+                        </p>   
+                    </div>
+                `;
+                alertContainer.insertAdjacentHTML("beforeend", alertHTML);
+
+                // Auto-dismiss after 5 seconds
+                setTimeout(() => dismissAlert(alertId), 10000);
+            }
+
+            // Function to dismiss an alert
+            window.dismissAlert = (alertId) => {
+                const alert = document.getElementById(alertId);
+                if (alert) {
+                    alert.remove();
+                }
+            };
+
+            // Function to remove the error chip
+            window.removeErrorChip = () => {
+                errorChipContainer.style.display = "none";
+                errorChipContainer.innerHTML = "";
+            };
+
+            // Initialize YAML Editor
+            const yamlEditor = ace.edit("yaml-editor");
+            yamlEditor.setTheme("ace/theme/twilight");
+            yamlEditor.session.setMode("ace/mode/yaml");
+            yamlEditor.setValue(`{{ default_yaml_content | safe }}`);
+            yamlEditor.setOptions({
+                fontSize: "12px",
+                wrap: false,
+                autoScrollEditorIntoView: false,
+                maxLines: Infinity,
+                highlightActiveLine: true,  // Highlight the current line
+                readOnly: false,            // Allow text selection and modification
+                enableBasicAutocompletion: true, // Optional autocompletion
+                enableLiveAutocompletion: true,  // Optional live autocompletion
+            });
+
+            // Initialize Template Editor
+            const templateEditor = ace.edit("template-editor");
+            templateEditor.setTheme("ace/theme/twilight");
+            templateEditor.session.setMode("ace/mode/xml");
+            templateEditor.setValue(`{{ default_template_content | safe }}`);
+            templateEditor.setOptions({
+                fontSize: "12px",
+                wrap: false,
+                autoScrollEditorIntoView: false,
+                maxLines: Infinity,
+                highlightActiveLine: true,  // Highlight the current line
+                readOnly: false,            // Allow text selection and modification
+                enableBasicAutocompletion: true, // Optional autocompletion
+                enableLiveAutocompletion: true,  // Optional live autocompletion
+            });
+
+            // Handle YAML dropdown changes
+            document.getElementById("yaml-selector").addEventListener("change", (e) => {
+                const fileName = e.target.value;
+                document.getElementById("yaml-name").value = fileName.split(".")[0];
+                fetch(`/file-content?file=${fileName}`)
+                    .then((response) => response.json())
+                    .then((data) => yamlEditor.setValue(data.content));
+            });
+
+            // Handle Template dropdown changes
+            document.getElementById("template-selector").addEventListener("change", (e) => {
+                const fileName = e.target.value;
+                document.getElementById("template-name").value = fileName.split(".")[0];
+                fetch(`/file-content?file=${fileName}`)
+                    .then((response) => response.json())
+                    .then((data) => templateEditor.setValue(data.content));
+            });
+
+            // Handle Render Button
+            document.getElementById("render-btn").addEventListener("click", () => {
+                const yamlName = document.getElementById("yaml-name").value.trim();
+                const templateName = document.getElementById("template-name").value.trim();
+                const yamlContent = yamlEditor.getValue();
+                const templateContent = templateEditor.getValue();
+
+                fetch("/render", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        yaml_name: yamlName,
+                        yaml_content: yamlContent,
+                        template_name: templateName,
+                        template_content: templateContent,
+                    }),
+                })
+                .then((response) => {
+                    if (!response.ok) {
+                        return response.json().then((data) => {
+                            if (data.error) {
+                                showFlyoverAlert(data.error);
+                            }
+                        });
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    if (data.yaml_files && data.template_files) {
+                        const yamlSelector = document.getElementById("yaml-selector");
+                        yamlSelector.innerHTML = data.yaml_files
+                            .map((file) => `<option value="${file}">${file}</option>`)
+                            .join("");
+
+                        const templateSelector = document.getElementById("template-selector");
+                        templateSelector.innerHTML = data.template_files
+                            .map((file) => `<option value="${file}">${file}</option>`)
+                            .join("");
+                    }
+                    document.getElementById("output-iframe").src = `/output.png?cache=${new Date().getTime()}`;
+                });
+            });
+
+            const iframe = document.getElementById("output-iframe");
+            iframe.addEventListener("load", () => {
+                // Dynamically resize the iframe to fit its content
+                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                const img = iframeDocument.querySelector("img");
+                
+                if (img) {
+                    // Apply styles to the image
+                    img.style.maxWidth = "100%";
+                    img.style.maxHeight = "100%";
+                    img.style.objectFit = "contain";
+
+                    // Apply styles to the iframe's body
+                    const style = iframeDocument.createElement("style");
+                    style.textContent = `
+                        body {
+                            margin: 0;
+                            display: flex;
+                            align-items: left;
+                            justify-content: left;
+                            height: 100vh;
+                            overflow: hidden;
+                        }
+                    `;
+                    iframeDocument.head.appendChild(style);
+                }
+            });
+        });
+    </script> 
+</body>
+</html>

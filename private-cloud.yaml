@@ -1,0 +1,15 @@
+page:
+  side: left
+  height: 8.5in
+  width: 11in
+  margin_width: 300
+  margin_color: #111
+
+layers:
+- title: 7 VPC Tenant Workloads
+  style: title
+- title: Self-Service Experiences and APIs
+  style: body
+- title: My third layer
+  style: label
+  
