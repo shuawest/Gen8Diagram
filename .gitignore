@@ -1,6 +1,6 @@
 
 # outputs
-*.png
+output.png
 *.svg
 
 # temporary and system files
