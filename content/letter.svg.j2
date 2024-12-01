@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-
 {% set width = "8.5in" %}
 {% set height = "11in" %}
-{% set layer_space = 80 %}
+{% set layer_space = 70 %}
 {% set layer_start = 100 %}
-{% set textRenderingAttributes = ' kerning="5" letter-spacing="0.05em" text-rendering="optimizeLegibility" ' %}
-
 <svg xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg" 
@@ -34,241 +31,98 @@
       fill:'{{ page.margin_color }}';
       stroke-width: 1.03114;
     }
-    text.layerText {
-      font-size: 13px;
-      font-kerning: normal;
-      font-size:9px;
-      text-align:start;
-      writing-mode:lr-tb;
-      direction:ltr;
-      white-space:pre;
-      display:inline;
-      fill:#214478
+    .stop {
+        stop-opacity:1;
     }
-    tspan.layerText {
-      font-family:'Red Hat Display';
-      -inkscape-font-specification:'Red Hat Display';
-      text-align:center;
-      text-anchor:middle;
-      fill:#ffffff;
+    .layerSkewBox {
+        fill-opacity:1;
+        stroke-width:0.513004;
     }
+    .layerText {
+        font-size:10px;
+        text-align:start;
+        writing-mode:lr-tb;
+        direction:ltr;
+        white-space:pre;
+        display:inline;
+        fill:#214478;
+    }
+    .layerTextTspan {
+        font-family:'Red Hat Display';
+        -inkscape-font-specification:'Red Hat Display';
+        text-align:center;
+        text-anchor:middle;
+        fill:#ffffff
+    }
+    
+    {% for layer_def in layer_definitions %}
+    #{{ layer_def.id }}GradientFront {
+        stop-color:{{ layer_def.gradient_front }};
+    }
+    {{ layer_def.id }}GradientBack {
+        stop-color:{{ layer_def.gradient_back }};
+    }
+    {% endfor %}
+    
   </style>
 
   <defs id="defs1">
 
-    <linearGradient
-       id="linearGradient241">
-      <stop
-         style="stop-color:#214478;stop-opacity:1"
-         offset="0"
-         id="stop240" />
-      <stop
-         style="stop-color:#000000;stop-opacity:1"
-         offset="1"
-         id="stop241" />
+    {% for layer_def in layer_definitions %}
+    <linearGradient id="{{ layer_def.id }}GradientStops">
+      <stop id="{{ layer_def.id }}GradientFront" class="stop" offset="0" />
+      <stop id="{{ layer_def.id }}GradientBack" class="stop" offset="1" />
     </linearGradient>
     <linearGradient
-       xlink:href="#linearGradient241"
-       id="linearGradient237"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.87293015,0,0,0.73263742,-603.24438,-305.09869)"
-       x1="1022.3738"
-       y1="811.16486"
-       x2="1017.4198"
-       y2="640.65466" />
-
-    <linearGradient
-       id="linearGradient285">
-      <stop
-         style="stop-color:#0055d4;stop-opacity:1"
-         offset="0"
-         id="stop284" />
-      <stop
-         style="stop-color:#000000;stop-opacity:1"
-         offset="1"
-         id="stop285" />
-    </linearGradient>
-    <linearGradient
-       xlink:href="#linearGradient285"
-       id="linearGradient222"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.66114706,0,0,0.71948581,-309.51343,-227.74008)"
-       x1="1022.3738"
-       y1="811.16486"
-       x2="1017.4198"
-       y2="640.65466" />
-
-    <linearGradient
-       id="linearGradient281">
-      <stop
-         style="stop-color:#aa0000;stop-opacity:1"
-         offset="0"
-         id="stop254" />
-      <stop
-         style="stop-color:#000000;stop-opacity:1"
-         offset="1"
-         id="stop255" />
-    </linearGradient>
-    <linearGradient
-       xlink:href="#linearGradient281"
-       id="linearGradient248"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.66114706,0,0,0.71948581,-225.7429,-89.169478)"
-       x1="1022.3738"
-       y1="811.16486"
-       x2="1017.4198"
-       y2="640.65466" />
-
-
-    <linearGradient
-       id="layerRedGradient">
-      <stop
-         style="stop-color:#d45500;stop-opacity:1"
-         offset="0"
-         id="stop278" />
-      <stop
-         style="stop-color:#000000;stop-opacity:1"
-         offset="1"
-         id="stop279" />
-    </linearGradient>
-    <linearGradient
-       xlink:href="#layerRedGradient"
-       id="layerRed"
+       xlink:href="#{{ layer_def.id }}GradientStops"
+       id="{{ layer_def.id }}Shape"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(0.66114706,0,0,0.71948581,-554.3153,-506.9666)"
-       x1="1022.3738"
-       y1="811.16486"
-       x2="1017.4198"
-       y2="640.65466" />
+       x1="1022.3738" y1="811.16486" x2="1017.4198" y2="640.65466" />
+    <rect id="{{ layer_def.id }}TextDouble1" x="364.05195" y="49.87013" width="229.40259" height="31.168832" />
+    <rect id="{{ layer_def.id }}TextDouble2" x="369.05194" y="49.870129" width="215.68829" height="33.662338" />
+    <rect id="{{ layer_def.id }}TextSingle" x="364.05195" y="49.87013" width="178.40259" height="35.168832" />    
+    {% endfor %}
+       
 
-
-    <linearGradient
-       id="layerLightBlueGradient">
-      <stop
-         style="stop-color:#0055d4;stop-opacity:1"
-         offset="0"
-         id="stop278" />
-      <stop
-         style="stop-color:#000000;stop-opacity:1"
-         offset="1"
-         id="stop279" />
-    </linearGradient>
-    <linearGradient
-       xlink:href="#layerLightBlueGradient"
-       id="layerLightBlue"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.66114706,0,0,0.71948581,-554.3153,-506.9666)"
-       x1="1022.3738"
-       y1="811.16486"
-       x2="1017.4198"
-       y2="640.65466" />
-
-    <linearGradient
-       id="linearGradient279">
-      <stop
-         style="stop-color:#0055d4;stop-opacity:1"
-         offset="0"
-         id="stop278" />
-      <stop
-         style="stop-color:#000000;stop-opacity:1"
-         offset="1"
-         id="stop279" />
-    </linearGradient>
-    <linearGradient
-       xlink:href="#linearGradient279"
-       id="linearGradient249"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.66114706,0,0,0.71948581,-554.3153,-506.9666)"
-       x1="1022.3738"
-       y1="811.16486"
-       x2="1017.4198"
-       y2="640.65466" />
-    <rect
-       x="364.05195"
-       y="49.87013"
-       width="229.40259"
-       height="31.168832"
-       id="rect246" />
-     <rect
-       x="366.05194"
-       y="49.870129"
-       width="215.68829"
-       height="33.662338"
-       id="rect246-4" />
-    <rect
-       x="364.05195"
-       y="49.87013"
-       width="178.40259"
-       height="35.168832"
-       id="rectTextSingle1" />
 
   </defs>
 
   <g id="layer1">
-    <rect
-       class="margin"
-       id="rect1"
-       width="{{ page.margin_width }}"
-       height="1060.9871"
-       x="0"
-       y="-2.4935064" />
-    <rect
-       class="margin"
-       id="rect2"
-       width="812.88312"
-       height="111.01"
-       x="0"
-       y="945.03894" />
+    <rect id="marginLeft" class="margin" width="{{ page.margin_width }}" height="1060.9871" x="0" y="-2.4935064" />
+    <rect id="marginBottom" class="margin" width="812.88312" height="111.01" x="0" y="945.03894" />
 
     {% for layer in layers %}
 
     <g id="{{ layer.id }}" transform="translate(80, {{ loop.index | int * layer_space + layer_start }})">
-      <rect
-         style="fill:url(#linearGradient249);fill-opacity:1;stroke-width:0.513004"
-         id="rect{{ layer.id }}"
-         width="201.12605"
-         height="53.597919"
-         x="33.21814"
-         y="0.42676842"
-         ry="0"
+      <rect id="rect{{ layer.id }}" class="layerSkewBox"
+         style="fill:url(#{{ layer.layer_def_id }}Shape);"
+         width="201.12605" height="53.597919" x="33.21814" y="0.42676842" ry="0"
          transform="matrix(1,0,-0.60453344,0.79657977,0,0)" />
 
       {% if layer.title is defined and layer.title != '' %}
       
-      <text id="text{{ layer.id }}" {{ textRenderingAttributes }}
-          style="shape-inside:url(#rectTextSingle1);"
-          class="layerText"
-          transform="translate(-339.51949,-32.98701)" x="124.1135" y="0">
-          <tspan x="378.21721" y="59.602648" id="tspanBox{{ layer.id }}" class="layerText">
-            <tspan id="tspanContent{{ layer.id }}" class="layerText"
-            {{ textRenderingAttributes }}>{{ layer.title }}</tspan>
-          </tspan>
+      <text id="text{{ layer.id }}" class="layerText" style="shape-inside:url(#{{ layer.layer_def_id }}TextSingle);"
+        x="124.1135" y="0" transform="translate(-339.51949,-32.98701)">
+            <tspan x="378.21721" y="59.602648" id="tspanBox{{ layer.id }}">
+                <tspan id="{{ layer.id }}TspanSingle" class="layerTextTspan">{{ layer.title }}</tspan>
+            </tspan>
       </text>
 
       {% else %}
 
-      <text
-         id="textA{{ layer.id }}" {{ textRenderingAttributes }}
-         style="shape-inside:url(#rect246);"
-         class="layerText"
-         x="124.1135"
-         y="0"
-         transform="translate(-354.51949,-41.98701)"><tspan
-           x="401.47241" class="layerText"
-           y="59.602648"
-           id="tspan2"><tspan class="layerText"
-             id="tspan1" {{ textRenderingAttributes }}>{{ layer.title1 }}</tspan></tspan></text>
-      <text
-         id="textB{{ layer.id }}" {{ textRenderingAttributes }}
-         style="shape-inside:url(#rect246-4);"
-         class="layerText"
-         x="124.1135" 
-         y="0"
-         transform="translate(-365.31291,-26.70679)"><tspan
-           x="445.52401" class="layerText"
-           y="59.602648"
-           id="tspan4"><tspan class="layerText"
-             id="tspan3" {{ textRenderingAttributes }}>{{ layer.title2 }}</tspan></tspan></text>
+      <text id="textA{{ layer.id }}" class="layerText" style="shape-inside:url(#{{ layer.layer_def_id }}TextDouble1);"
+        x="124.1135" y="0" transform="translate(-354.51949,-41.98701)">
+            <tspan id="tspan2" x="401.47241" y="59.602648">
+                <tspan id="{{ layer.id }}TspanDouble1" class="layerTextTspan">{{ layer.title1 }}</tspan>
+            </tspan>
+      </text>
+      <text id="textB{{ layer.id }}" class="layerText" style="shape-inside:url(#{{ layer.layer_def_id }}TextDouble2);"
+        x="124.1135" y="0" transform="translate(-365.31291,-26.70679)">
+            <tspan id="tspan4" x="445.52401" y="59.602648">
+                <tspan id="{{ layer.id }}TspanDouble2" class="layerTextTspan">{{ layer.title2 }}</tspan>
+            </tspan>
+      </text>
 
       {% endif %}
     </g>
