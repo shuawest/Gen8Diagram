@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 {% set width = "8.5in" %}
 {% set height = "11in" %}
-{% set layer_space = 70 %}
+{% set layer_space = 75 %}
 {% set layer_start = 100 %}
 <svg xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +28,7 @@
       fill: blue;
     }
     .margin {
-      fill:'{{ page.margin_color }}';
+      fill:{{ page.margin_color }};
       stroke-width: 1.03114;
     }
     .stop {
@@ -49,7 +49,6 @@
     }
     .layerTextTspan {
         font-family:'Red Hat Display';
-        -inkscape-font-specification:'Red Hat Display';
         text-align:center;
         text-anchor:middle;
         fill:#ffffff
@@ -59,7 +58,7 @@
     #{{ layer_def.id }}GradientFront {
         stop-color:{{ layer_def.gradient_front }};
     }
-    {{ layer_def.id }}GradientBack {
+    #{{ layer_def.id }}GradientBack {
         stop-color:{{ layer_def.gradient_back }};
     }
     {% endfor %}
@@ -73,38 +72,34 @@
       <stop id="{{ layer_def.id }}GradientFront" class="stop" offset="0" />
       <stop id="{{ layer_def.id }}GradientBack" class="stop" offset="1" />
     </linearGradient>
-    <linearGradient
-       xlink:href="#{{ layer_def.id }}GradientStops"
-       id="{{ layer_def.id }}Shape"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.66114706,0,0,0.71948581,-554.3153,-506.9666)"
-       x1="1022.3738" y1="811.16486" x2="1017.4198" y2="640.65466" />
-    <rect id="{{ layer_def.id }}TextDouble1" x="364.05195" y="49.87013" width="229.40259" height="31.168832" />
-    <rect id="{{ layer_def.id }}TextDouble2" x="369.05194" y="49.870129" width="215.68829" height="33.662338" />
-    <rect id="{{ layer_def.id }}TextSingle" x="364.05195" y="49.87013" width="178.40259" height="35.168832" />    
+    <linearGradient id="{{ layer_def.id }}Shape" xlink:href="#{{ layer_def.id }}GradientStops"
+       x1="1022" y1="811" x2="1017" y2="641"
+       gradientTransform="matrix(0.7,0,0,0.7,-554,-507)" gradientUnits="userSpaceOnUse"/>
+    <rect id="{{ layer_def.id }}TextDouble1" x="364" y="50" width="230" height="32" />
+    <rect id="{{ layer_def.id }}TextDouble2" x="369" y="50" width="216" height="32" />
+    <rect id="{{ layer_def.id }}TextSingle" x="364" y="50" width="178" height="32" />    
     {% endfor %}
-       
-
-
+     
   </defs>
 
-  <g id="layer1">
-    <rect id="marginLeft" class="margin" width="{{ page.margin_width }}" height="1060.9871" x="0" y="-2.4935064" />
-    <rect id="marginBottom" class="margin" width="812.88312" height="111.01" x="0" y="945.03894" />
+  <g id="page">
+    <rect id="marginLeft" class="margin" width="{{ page.margin_width }}" height="1056" x="0" y="0" />
+    <rect id="marginBottom" class="margin" width="816" height="112" x="0" y="946" />
 
     {% for layer in layers %}
 
     <g id="{{ layer.id }}" transform="translate(80, {{ loop.index | int * layer_space + layer_start }})">
+      
       <rect id="rect{{ layer.id }}" class="layerSkewBox"
          style="fill:url(#{{ layer.layer_def_id }}Shape);"
-         width="201.12605" height="53.597919" x="33.21814" y="0.42676842" ry="0"
-         transform="matrix(1,0,-0.60453344,0.79657977,0,0)" />
+         width="201" height="54" x="33" y="0.5" ry="0"
+         transform="matrix(1,0,-0.6,0.8,0,0)" />
 
       {% if layer.title is defined and layer.title != '' %}
       
       <text id="text{{ layer.id }}" class="layerText" style="shape-inside:url(#{{ layer.layer_def_id }}TextSingle);"
-        x="124.1135" y="0" transform="translate(-339.51949,-32.98701)">
-            <tspan x="378.21721" y="59.602648" id="tspanBox{{ layer.id }}">
+            x="124.1135" y="0" transform="translate(-340,-33)">
+            <tspan x="378" y="60" id="tspanBox{{ layer.id }}">
                 <tspan id="{{ layer.id }}TspanSingle" class="layerTextTspan">{{ layer.title }}</tspan>
             </tspan>
       </text>
@@ -112,25 +107,24 @@
       {% else %}
 
       <text id="textA{{ layer.id }}" class="layerText" style="shape-inside:url(#{{ layer.layer_def_id }}TextDouble1);"
-        x="124.1135" y="0" transform="translate(-354.51949,-41.98701)">
-            <tspan id="tspan2" x="401.47241" y="59.602648">
+            x="124.1135" y="0" transform="translate(-355,-42)">
+            <tspan id="tspan2" x="401" y="60">
                 <tspan id="{{ layer.id }}TspanDouble1" class="layerTextTspan">{{ layer.title1 }}</tspan>
             </tspan>
       </text>
       <text id="textB{{ layer.id }}" class="layerText" style="shape-inside:url(#{{ layer.layer_def_id }}TextDouble2);"
-        x="124.1135" y="0" transform="translate(-365.31291,-26.70679)">
-            <tspan id="tspan4" x="445.52401" y="59.602648">
+            x="124.1135" y="0" transform="translate(-365,-27)">
+            <tspan id="tspan4" x="446" y="60">
                 <tspan id="{{ layer.id }}TspanDouble2" class="layerTextTspan">{{ layer.title2 }}</tspan>
             </tspan>
       </text>
 
       {% endif %}
+      
     </g>
 
     {% endfor %}
 
   </g>
-  
-
 
 </svg>

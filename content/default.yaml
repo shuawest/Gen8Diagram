@@ -1,22 +1,29 @@
 page:
   side: left
   margin_width: 330
-  margin_color: '#000'
+  margin_color: '#111'
 
 layer_definitions:
 - id: tentantLayer
-  gradient_front: '#0011a0'
-  gradient_back: '#000000'
+  shape: platformLayer
+  gradient_front: '#0011d0'
+  gradient_back: '#222'
 - id: firmLayer
+  shape: stackLayer
   gradient_front: '#0055d4'
-  gradient_back: '#000000'
+  gradient_back: '#000'
 - id: rhLayer
+  shape: stackLayer
   gradient_front: '#f91100'
-  gradient_back: '#000000'
+  gradient_back: '#000'
+- id: metalLayer
+  shape: stackLayer
+  gradient_front: '#777'
+  gradient_back: '#000'
 
 layers:
 - id: workloadLayer
-  title: TENANT WORKLOADS
+  title: 12 TENANT WORKLOADS
   style: title
   layer_def_id: tentantLayer
 - id: selfServiceApi
@@ -48,5 +55,5 @@ layers:
 - id: metalLayer
   title1: NEXT-GEN PHYSCIAL NETWORK, 
   title2: COMPUTE, STORAGE, ACCLERATORS
-  layer_def_id: rhLayer
+  layer_def_id: metalLayer
   
