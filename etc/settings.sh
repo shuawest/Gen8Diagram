@@ -2,7 +2,7 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 IMAGE_NAME=gen8diagram
-IMAGE_VERSION=0.3
+IMAGE_VERSION=0.4
 
 QUAY_REPO=quay.io/jowest/gen8diagram
 

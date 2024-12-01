@@ -43,6 +43,7 @@ html, body {
 
 #render-btn {
     background-color: #0065e0;
+    color: #fff;
     border: 0px;
     height: 40px;
 }
@@ -66,7 +67,8 @@ html, body {
 .editor {
     height: 200px;
     width: 100%;
-    border: 1px solid #444;
+    border: 1px solid #212121;
+    background-color: #212121;
     resize: vertical;
     /* max-height: 300px; */
     /* resize: vertical; */

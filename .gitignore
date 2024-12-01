@@ -6,3 +6,4 @@ output.png
 # temporary and system files
 *.bak*
 .DS_Store
+prompt.md

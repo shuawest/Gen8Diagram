@@ -8,17 +8,20 @@ import subprocess
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
 WORKING_DIR = os.getcwd()
+CONTENT_DIR = os.path.join(WORKING_DIR, "content")
+GEN_DIR = os.path.join(WORKING_DIR, "generated")
+WEB_DIR = os.path.join(WORKING_DIR, "templates")
 DEFAULT_YAML = "default.yaml"
 DEFAULT_TEMPLATE = "letter.svg.j2"
 
 # Helpers for file operations
 def get_files_by_extension(extension):
     """Returns a list of files in the working directory with the given extension."""
-    return [f for f in os.listdir(WORKING_DIR) if f.endswith(extension)]
+    return [f for f in os.listdir(CONTENT_DIR) if f.endswith(extension)]
 
 def load_file_content(file_name):
     """Loads the content of a file."""
-    file_path = os.path.join(WORKING_DIR, file_name)
+    file_path = os.path.join(CONTENT_DIR, file_name)
     if os.path.exists(file_path):
         with open(file_path, "r") as f:
             return f.read()
@@ -26,7 +29,7 @@ def load_file_content(file_name):
 
 def save_file_content(file_name, content):
     """Saves content to a file."""
-    file_path = os.path.join(WORKING_DIR, file_name)
+    file_path = os.path.join(CONTENT_DIR, file_name)
     with open(file_path, "w") as f:
         f.write(content)
 
@@ -85,7 +88,7 @@ def render_png():
     # Combine YAML and template to render SVG
     try:
         rendered_svg = render_svg_from_template(yaml_content, template_content)
-        svg_output = os.path.join(WORKING_DIR, "output.svg")
+        svg_output = os.path.join(GEN_DIR, "output.svg")
         with open(svg_output, "w") as f:
             f.write(rendered_svg)
     except ValueError as e:
@@ -93,7 +96,7 @@ def render_png():
 
     # Convert SVG to PNG using Inkscape
     try:
-        png_output = os.path.join(WORKING_DIR, "output.png")
+        png_output = os.path.join(GEN_DIR, "output.png")
         subprocess.run(["inkscape", svg_output, "--export-dpi=300", "--export-filename", png_output], check=True)
 
         # Refresh file lists
@@ -111,7 +114,7 @@ def render_png():
 @app.route("/output.png")
 def get_output_png():
     """Returns the rendered PNG."""
-    png_file = os.path.join(WORKING_DIR, "output.png")
+    png_file = os.path.join(GEN_DIR, "output.png")
     if os.path.exists(png_file):
         return send_file(png_file, mimetype="image/png")
     return "No image generated.", 404

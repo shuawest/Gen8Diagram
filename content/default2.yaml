@@ -1,0 +1,39 @@
+page:
+  side: left
+  margin_width: 330
+  margin_color: '#000'
+
+layers:
+- id: workloadLayer
+  title: VPC TENANT WORKLOADS
+  style: title
+- id: selfServiceApi
+  title: SELF-SERVICE EXPERIENCE &amp; API
+  style: body
+- id: controlLayer
+  title1: RISK, COMPLIANCE,
+  title2: BILLING, OBSERVABILITY
+  style: body
+- id: identityLayer
+  title1: IDENTITY, INVENTORY, 
+  title2: POLICY, FIRM CLOUD API
+  style: body
+- id: vpcLayer
+  title1: VIRTUAL PRIVATE CLOUDS,  
+  title2: SEGMENTATION, POLICY CONTROL  
+  style: body
+- id: sdsLayer
+  title1: BLOCK, FILE, OBJECT
+  title2: STORAGE AS A SERVICE
+  style: label
+- id: sdnLayer
+  title: SOFTWARE DEFINED NETWORK OVERLAY
+  style: label
+- id: sdnLayer
+  title1: KUBERNETES BASED 
+  title2: VIRTUALIZATION &amp; CONTAINERS
+- id: metalLayer
+  title1: NEXT-GEN PHYSCIAL NETWORK, 
+  title2: COMPUTE, STORAGE, ACCLERATORS
+  style: label
+  

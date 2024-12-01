@@ -13,15 +13,10 @@ RUN pip install jinja2-cli
 WORKDIR /app
 
 COPY app.py .
-RUN mkdir /app/static
-RUN mkdir /app/templates
-COPY default.yaml .
-COPY letter.svg.j2 .
-COPY slide.svg.j2 .
-COPY static/layers.ico /app/static/layers.ico
-COPY static/layers.png /app/static/layers.png
-COPY static/styles.css /app/static/styles.css
-COPY templates/index.html /app/templates/index.html
+RUN mkdir -p /app/static /app/templates /app/content /app/generated
+COPY content/* /app/content/
+COPY templates/* /app/templates/
+COPY static/* /app/static/
 
 # Expose the Flask app's port
 EXPOSE 5050

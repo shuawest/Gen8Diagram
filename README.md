@@ -23,14 +23,15 @@ The edits to the files are stored in the ephemeral container's filesystem. Attac
 1. Fork https://github.com/shuawest/Gen8Diagram
 2. Clone the repo `git clone git@github.com:<your_github_handle>/Gen8Diagram.git`
 3. Update scripts/settings.sh with your own settings
-4. Start the app from source and attach the /app working directory to your source root
+4. Ensure you are authenticated to your Red Hat account on your host, or in Podman Desktop.
+5. Start the app from source and attach the /app working directory to your source root
 ```
 podman run -d --name gen8diagram -p 5050:5050 -v "<cloned_Gen8Diagram_dir>":/app -w /app gen8diagram
 
 # alternatively run
-scripts/start.sh
+etc/start.sh
 ```
-5. Send pull requests with app fixes, yaml context files, svg.j2 templates. 
+6. Send pull requests with app fixes, yaml context files, svg.j2 templates. 
   WARNING: DO NOT put sensitive or private company information into the context or templates.
 
 
