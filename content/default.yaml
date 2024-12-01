@@ -5,7 +5,7 @@ page:
 
 layers:
 - id: workloadLayer
-  title: VPC TENANT WORKLOADS
+  title: TENANT WORKLOADS
   style: title
 - id: selfServiceApi
   title: SELF-SERVICE EXPERIENCE &amp; API
@@ -27,7 +27,7 @@ layers:
   title2: STORAGE AS A SERVICE
   style: label
 - id: sdnLayer
-  title: SOFTWARE DEFINED NETWORK OVERLAY
+  title: SOFTWARE DEFINED NETWORK
   style: label
 - id: sdnLayer
   title1: KUBERNETES BASED 

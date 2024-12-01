@@ -97,8 +97,11 @@ def render_png():
     # Convert SVG to PNG using Inkscape
     try:
         png_output = os.path.join(GEN_DIR, "output.png")
-        subprocess.run(["inkscape", svg_output, "--export-dpi=300", "--export-filename", png_output], check=True)
-
+        subprocess.run(["inkscape", svg_output, 
+                        "--export-dpi=300", 
+                        "--export-png-color-mode=RGBA_16", 
+                        "--export-filename", png_output], check=True)
+        
         # Refresh file lists
         yaml_files = get_files_by_extension(".yaml")
         template_files = get_files_by_extension(".svg.j2")
