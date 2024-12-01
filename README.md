@@ -5,7 +5,7 @@
 Generate diagrams using YAML based data inputs applied to an SVG Jinga2 template. 
 Interactively edit the data inputs and the template. 
 
-This is a quick utility. Each time your hit 'Render' the editor contents are to the filesystem in the working directory. Change the name of the target file using the textbox next to the selction drop down. 
+This is a quick utility. Each time your hit 'Render' the editor contents are saved to the filesystem in the working directory. Change the name of the target file using the textbox next to the selection drop down if you want to have multiple working files or variations. 
 
 ![gen8diagram screenshot](docs/screen.png)
 
