@@ -14,3 +14,5 @@ podman push ${QUAY_REPO}:${IMAGE_VERSION}
 podman tag localhost/${IMAGE_NAME}:${IMAGE_VERSION} ${QUAY_REPO}:latest
 podman push ${QUAY_REPO}:latest
 
+git tag -a v${IMAGE_VERSION} -m "Published v${IMAGE_VERSION} to quay.io/jowest/gen8diagram"
+git push --tags
