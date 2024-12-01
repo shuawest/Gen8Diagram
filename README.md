@@ -5,13 +5,13 @@
 Generate diagrams using YAML based data inputs applied to an SVG Jinga2 template. 
 Interactively edit the data inputs and the template. 
 
-This is a quick utility. Currently, each time your hit 'Render' the editor contents are to the filesystem in the working directory. Change the name of the target file using the textbox next to the selction drop down. 
+This is a quick utility. Each time your hit 'Render' the editor contents are to the filesystem in the working directory. Change the name of the target file using the textbox next to the selction drop down. 
 
 ![gen8diagram screenshot](docs/screen.png)
 
 ## Usage
 
-To run this utility, run the container and forward the port 5050 to your localhost. Then open http://localhost:5050.
+Run the container and forward the port 5050 to your localhost. Then open http://localhost:5050.
 ```
 podman run -d --name gen8diagram -p 5050:5050 quay.io/jowest/gen8diagram:0.3
 ```
