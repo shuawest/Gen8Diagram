@@ -23,8 +23,11 @@ The edits to the files are stored in the ephemeral container's filesystem. Attac
 ## Contributing
 
 1. Fork https://github.com/shuawest/Gen8Diagram
-2. Clone the repo `git clone git@github.com:<your_github_handle>/Gen8Diagram.git`
-3. Update scripts/settings.sh with your own settings
+2. Clone the repo 
+```
+git clone git@github.com:<your_github_handle>/Gen8Diagram.git
+```
+3. Update `scripts/settings.sh` with your own settings
 4. Ensure you are authenticated to your Red Hat account on your host, or in Podman Desktop.
 5. Start the app from source and attach the /app working directory to your source root
 ```
