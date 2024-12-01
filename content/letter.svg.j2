@@ -54,11 +54,12 @@
         fill:#ffffff
     }
     
-    {% for layer_def in layer_definitions %}
-    #{{ layer_def.id }}GradientFront {
+    {% for layer_def_name in layer_definitions %}
+    {% set layer_def = layer_definitions[layer_def_name] %}
+    #{{ layer_def_name }}GradientFront {
         stop-color:{{ layer_def.gradient_front }};
     }
-    #{{ layer_def.id }}GradientBack {
+    #{{ layer_def_name }}GradientBack {
         stop-color:{{ layer_def.gradient_back }};
     }
     {% endfor %}
@@ -67,32 +68,19 @@
 
   <defs id="defs1">
 
-    {% for layer_def in layer_definitions %}
-    <linearGradient id="{{ layer_def.id }}GradientStops">
-      <stop id="{{ layer_def.id }}GradientFront" class="stop" offset="0" />
-      <stop id="{{ layer_def.id }}GradientBack" class="stop" offset="1" />
+    {% for layer_def_name in layer_definitions %}
+    {% set layer_def = layer_definitions[layer_def_name] %}
+    <linearGradient id="{{ layer_def_name }}GradientStops">
+      <stop id="{{ layer_def_name }}GradientFront" class="stop" offset="0" />
+      <stop id="{{ layer_def_name }}GradientBack" class="stop" offset="1" />
     </linearGradient>
-    <linearGradient id="{{ layer_def.id }}Shape" xlink:href="#{{ layer_def.id }}GradientStops"
+    <linearGradient id="{{ layer_def_name }}Shape" xlink:href="#{{ layer_def_name }}GradientStops"
        x1="1022" y1="811" x2="1017" y2="641"
        gradientTransform="matrix(0.7,0,0,0.7,-554,-507)" gradientUnits="userSpaceOnUse"/>
-    <rect id="{{ layer_def.id }}TextDouble1" x="364" y="50" width="230" height="32" />
-    <rect id="{{ layer_def.id }}TextDouble2" x="369" y="50" width="216" height="32" />
-    <rect id="{{ layer_def.id }}TextSingle" x="364" y="50" width="178" height="32" />    
+    <rect id="{{ layer_def_name }}TextDouble1" x="364" y="50" width="230" height="32" />
+    <rect id="{{ layer_def_name }}TextDouble2" x="369" y="50" width="216" height="32" />
+    <rect id="{{ layer_def_name }}TextSingle" x="364" y="50" width="178" height="32" />    
     {% endfor %}
-     
-    <g id="test1">
-        <linearGradient id="testGradient">
-          <stop class="stop" offset="0" style="stop-color:#fff;stop-opacity:1;" />
-          <stop class="stop" offset="1" style="stop-color:#000;stop-opacity:1;" />
-        </linearGradient>
-        <linearGradient xlink:href="#testGradient"
-            x1="1022" y1="811" x2="1017" y2="641"
-            gradientTransform="matrix(0.7,0,0,0.7,-554,-507)" gradientUnits="userSpaceOnUse" />
-        <rect id="testRect" class="layerSkewBox"
-            style="fill:url(#testGradient);"
-            width="201" height="54" x="33" y="0.5" ry="0"
-            transform="matrix(1,0,-0.6,0.8,0,0)" />
-    </g> 
      
   </defs>
 
@@ -139,10 +127,7 @@
 
     {% endfor %}
 
-    <use xlink:href="#test1">
-        <text>test</text>
-    </use>
-
+    
   </g>
 
 </svg>
