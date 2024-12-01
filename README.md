@@ -13,7 +13,7 @@ This is a quick utility. Each time your hit 'Render' the editor contents are sav
 
 Run the container and forward the port 5050 to your localhost. Then open http://localhost:5050.
 ```
-podman run -d --name gen8diagram -p 5050:5050 quay.io/jowest/gen8diagram:0.3
+podman run -d --name gen8diagram -p 5050:5050 quay.io/jowest/gen8diagram:0.4
 ```
 
 Edit the yaml context and SVG template using standarard or inkscape compatible SVG syntax encriched with jinja2 logic. Click on the 'Render' button to generate the image. Right click to download the generated image.  
