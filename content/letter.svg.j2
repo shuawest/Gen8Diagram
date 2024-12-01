@@ -80,6 +80,20 @@
     <rect id="{{ layer_def.id }}TextSingle" x="364" y="50" width="178" height="32" />    
     {% endfor %}
      
+    <g id="test1">
+        <linearGradient id="testGradient">
+          <stop class="stop" offset="0" style="stop-color:#fff;stop-opacity:1;" />
+          <stop class="stop" offset="1" style="stop-color:#000;stop-opacity:1;" />
+        </linearGradient>
+        <linearGradient xlink:href="#testGradient"
+            x1="1022" y1="811" x2="1017" y2="641"
+            gradientTransform="matrix(0.7,0,0,0.7,-554,-507)" gradientUnits="userSpaceOnUse" />
+        <rect id="testRect" class="layerSkewBox"
+            style="fill:url(#testGradient);"
+            width="201" height="54" x="33" y="0.5" ry="0"
+            transform="matrix(1,0,-0.6,0.8,0,0)" />
+    </g> 
+     
   </defs>
 
   <g id="page">
@@ -98,8 +112,8 @@
       {% if layer.title is defined and layer.title != '' %}
       
       <text id="text{{ layer.id }}" class="layerText" style="shape-inside:url(#{{ layer.layer_def_id }}TextSingle);"
-            x="124.1135" y="0" transform="translate(-340,-33)">
-            <tspan x="378" y="60" id="tspanBox{{ layer.id }}">
+            x="124" y="0" transform="translate(-340,-33)">
+            <tspan x="378" y="60" id="{{ layer.id }}SingleTspanBox">
                 <tspan id="{{ layer.id }}TspanSingle" class="layerTextTspan">{{ layer.title }}</tspan>
             </tspan>
       </text>
@@ -107,14 +121,14 @@
       {% else %}
 
       <text id="textA{{ layer.id }}" class="layerText" style="shape-inside:url(#{{ layer.layer_def_id }}TextDouble1);"
-            x="124.1135" y="0" transform="translate(-355,-42)">
-            <tspan id="tspan2" x="401" y="60">
+            x="124" y="0" transform="translate(-355,-42)">
+            <tspan x="401" y="60" id="{{ layer.id }}TspanDouble1Box">
                 <tspan id="{{ layer.id }}TspanDouble1" class="layerTextTspan">{{ layer.title1 }}</tspan>
             </tspan>
       </text>
       <text id="textB{{ layer.id }}" class="layerText" style="shape-inside:url(#{{ layer.layer_def_id }}TextDouble2);"
-            x="124.1135" y="0" transform="translate(-365,-27)">
-            <tspan id="tspan4" x="446" y="60">
+            x="124" y="0" transform="translate(-365,-27)">
+            <tspan x="446" y="60" id="{{ layer.id }}TspanDouble2Box" >
                 <tspan id="{{ layer.id }}TspanDouble2" class="layerTextTspan">{{ layer.title2 }}</tspan>
             </tspan>
       </text>
@@ -124,6 +138,10 @@
     </g>
 
     {% endfor %}
+
+    <use xlink:href="#test1">
+        <text>test</text>
+    </use>
 
   </g>
 
