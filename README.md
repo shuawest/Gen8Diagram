@@ -1,6 +1,6 @@
-# Gen8Diagram - Template Based Diagram Generator
-
 <img src="static/layers.png" width="48" height="48">
+
+# Gen8Diagram - Template Based Diagram Generator
 
 Generate diagrams using YAML based data inputs applied to an SVG Jinga2 template. 
 Interactively edit the data inputs and the template. 
