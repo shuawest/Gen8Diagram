@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+{% set width = "8.5in" %}
+{% set height = "11in" %}
+{% set layer_space = 75 %}
+{% set layer_start = 100 %}
+<svg xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg" 
+   id="infraLayersCoverGen"
+   width="{{ width }}"
+   height="{{ height }}"
+   viewBox="0 0 816 1056"
+   version="1.1">
+  <style>
+    .title {
+      font-family: 'Red Hat Display', sans-serif;
+      font-size: 24px;
+      fill: black;
+    }
+    .body {
+      font-family: 'Red Hat Text', sans-serif;
+      font-size: 16px;
+      fill: gray;
+    }
+    .label {
+      font-family: 'Overpass', sans-serif;
+      font-size: 14px;
+      fill: blue;
+    }
+    .margin {
+      fill:{{ page.margin_color }};
+      stroke-width: 1.03114;
+    }
+    .stop {
+        stop-opacity:1;
+    }
+    .layerSkewBox {
+        fill-opacity:1;
+        stroke-width:0.513004;
+    }
+    .layerText {
+        font-size:10px;
+        text-align:start;
+        writing-mode:lr-tb;
+        direction:ltr;
+        white-space:pre;
+        display:inline;
+        fill:#214478;
+    }
+    .layerTextTspan {
+        font-family:'Red Hat Display';
+        text-align:center;
+        text-anchor:middle;
+        fill:#ffffff
+    }
+    
+    {% for layer_def_name in layer_definitions %}
+    {% set layer_def = layer_definitions[layer_def_name] %}
+    #{{ layer_def_name }}GradientFront {
+        stop-color:{{ layer_def.gradient_front }};
+    }
+    #{{ layer_def_name }}GradientBack {
+        stop-color:{{ layer_def.gradient_back }};
+    }
+    {% endfor %}
+    
+  </style>
+
+  <defs id="defs1">
+
+    {% for layer_def_name in layer_definitions %}
+    {% set layer_def = layer_definitions[layer_def_name] %}
+    <linearGradient id="{{ layer_def_name }}GradientStops">
+      <stop id="{{ layer_def_name }}GradientFront" class="stop" offset="0" />
+      <stop id="{{ layer_def_name }}GradientBack" class="stop" offset="1" />
+    </linearGradient>
+    <linearGradient id="{{ layer_def_name }}Shape" xlink:href="#{{ layer_def_name }}GradientStops"
+       x1="1022" y1="811" x2="1017" y2="641"
+       gradientTransform="matrix(0.7,0,0,0.7,-554,-507)" gradientUnits="userSpaceOnUse"/>
+    <rect id="{{ layer_def_name }}TextDouble1" x="364" y="50" width="230" height="32" />
+    <rect id="{{ layer_def_name }}TextDouble2" x="369" y="50" width="216" height="32" />
+    <rect id="{{ layer_def_name }}TextSingle" x="364" y="50" width="178" height="32" />    
+    {% endfor %}
+     
+  </defs>
+
+  <g id="page">
+    <rect id="marginLeft" class="margin" width="{{ page.margin_width }}" height="1056" x="0" y="0" />
+    <rect id="marginBottom" class="margin" width="816" height="112" x="0" y="946" />
+
+    {% for layer in layers %}
+
+    <g id="{{ layer.id }}" transform="translate(80, {{ loop.index | int * layer_space + layer_start }})">
+      
+      <rect id="rect{{ layer.id }}" class="layerSkewBox"
+         style="fill:url(#{{ layer.layer_def_id }}Shape);"
+         width="201" height="54" x="33" y="0.5" ry="0"
+         transform="matrix(1,0,-0.6,0.8,0,0)" />
+
+      {% if layer.title is defined and layer.title != '' %}
+      
+      <text id="text{{ layer.id }}" class="layerText" style="shape-inside:url(#{{ layer.layer_def_id }}TextSingle);"
+            x="124" y="0" transform="translate(-340,-33)">
+            <tspan x="378" y="60" id="{{ layer.id }}SingleTspanBox">
+                <tspan id="{{ layer.id }}TspanSingle" class="layerTextTspan">{{ layer.title }}</tspan>
+            </tspan>
+      </text>
+
+      {% else %}
+
+      <text id="textA{{ layer.id }}" class="layerText" style="shape-inside:url(#{{ layer.layer_def_id }}TextDouble1);"
+            x="124" y="0" transform="translate(-355,-42)">
+            <tspan x="401" y="60" id="{{ layer.id }}TspanDouble1Box">
+                <tspan id="{{ layer.id }}TspanDouble1" class="layerTextTspan">{{ layer.title1 }}</tspan>
+            </tspan>
+      </text>
+      <text id="textB{{ layer.id }}" class="layerText" style="shape-inside:url(#{{ layer.layer_def_id }}TextDouble2);"
+            x="124" y="0" transform="translate(-365,-27)">
+            <tspan x="446" y="60" id="{{ layer.id }}TspanDouble2Box" >
+                <tspan id="{{ layer.id }}TspanDouble2" class="layerTextTspan">{{ layer.title2 }}</tspan>
+            </tspan>
+      </text>
+
+      {% endif %}
+      
+    </g>
+
+    {% endfor %}
+
+    
+  </g>
+
+</svg>

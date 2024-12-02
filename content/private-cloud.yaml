@@ -1,15 +1,59 @@
 page:
   side: left
-  height: 8.5in
-  width: 11in
-  margin_width: 300
-  margin_color: #111
+  margin_width: 330
+  margin_color: '#111'
+
+layer_definitions:
+    tentantLayer:
+        shape: platformLayer
+        gradient_front: '#0011d0'
+        gradient_back: '#222'
+    firmLayer:
+        shape: stackLayer
+        gradient_front: '#0055d4'
+        gradient_back: '#000'
+    rhLayer:
+        shape: stackLayer
+        gradient_front: '#f91100'
+        gradient_back: '#000'
+    metalLayer:
+        shape: stackLayer
+        gradient_front: '#777'
+        gradient_back: '#000'
 
 layers:
-- title: 7 VPC Tenant Workloads
-  style: title
-- title: Self-Service Experiences and APIs
-  style: body
-- title: My third layer
-  style: label
-  
+    - id: workloadLayer
+      title: TENANT WORKLOADS
+      style: title
+      layer_def_id: tentantLayer
+    - id: selfServiceApi
+      title: SELF-SERVICE EXPERIENCE &amp; API
+      layer_def_id: firmLayer
+    - id: controlLayer
+      title1: RISK, COMPLIANCE,
+      title2: BILLING, OBSERVABILITY
+      layer_def_id: firmLayer
+    - id: identityLayer
+      title1: IDENTITY, INVENTORY, 
+      title2: POLICY, FIRM CLOUD API
+      layer_def_id: firmLayer
+    - id: vpcLayer
+      title1: VIRTUAL PRIVATE CLOUDS,  
+      title2: SEGMENTATION, POLICY CONTROL  
+      layer_def_id: rhLayer
+    - id: sdsLayer
+      title1: BLOCK, FILE, OBJECT
+      title2: STORAGE AS A SERVICE
+      layer_def_id: rhLayer
+    - id: sdnLayer
+      title: SOFTWARE DEFINED NETWORK
+      layer_def_id: rhLayer
+    - id: sdnLayer
+      title1: KUBERNETES BASED 
+      title2: VIRTUALIZATION &amp; CONTAINERS
+      layer_def_id: rhLayer
+    - id: metalLayer
+      title1: NEXT-GEN PHYSCIAL NETWORK, 
+      title2: COMPUTE, STORAGE, ACCLERATORS
+      layer_def_id: metalLayer
+      

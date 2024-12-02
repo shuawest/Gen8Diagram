@@ -1,7 +1,7 @@
 page:
   side: left
   margin_width: 330
-  margin_color: '#000'
+  margin_color: '#111'
 
 layer_defs:
     tentantLayer:
@@ -20,8 +20,6 @@ layer_defs:
         shape: stackLayer
         gradient_front: '#777'
         gradient_back: '#000'
-        
-# for every 30 title chars move the text up __ pixels
 
 layers:
     - id: workloadLayer
