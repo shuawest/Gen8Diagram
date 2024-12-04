@@ -25,37 +25,35 @@ layer_defs:
 
 layers:
     - id: workloadLayer
-      title: TENANT WORKLOADS
+      label: TENANT WORKLOADS
       style: title
       layer_def: tentantLayer
     - id: selfServiceApi
-      title: SELF-SERVICE EXPERIENCE &amp; API
+      label: SELF-SERVICE EXPERIENCE &amp; API
       layer_def: firmLayer
     - id: controlLayer
-      title1: RISK, COMPLIANCE,
-      title2: BILLING, OBSERVABILITY
+      label: RISK, COMPLIANCE, BILLING, OBSERVABILITY
       layer_def: firmLayer
     - id: identityLayer
-      title1: IDENTITY, INVENTORY, 
-      title2: POLICY, FIRM CLOUD API
+      label: IDENTITY, INVENTORY, POLICY, FIRM CLOUD API
       layer_def: firmLayer
     - id: vpcLayer
-      title1: VIRTUAL PRIVATE CLOUDS,  
-      title2: SEGMENTATION, POLICY CONTROL  
+      label: VIRTUAL PRIVATE CLOUDS, SEGMENTATION, POLICY CONTROL  
       layer_def: rhLayer
     - id: sdsLayer
-      title1: BLOCK, FILE, OBJECT
-      title2: STORAGE AS A SERVICE
+      label: BLOCK, FILE, OBJECT STORAGE AS A SERVICE
       layer_def: rhLayer
     - id: sdnLayer
-      title: SOFTWARE DEFINED NETWORK
+      label: SOFTWARE DEFINED NETWORK
       layer_def: rhLayer
     - id: sdnLayer
-      title1: KUBERNETES BASED 
-      title2: VIRTUALIZATION &amp; CONTAINERS
+      label: KUBERNETES BASED VIRTUALIZATION &amp; CONTAINERS
       layer_def: rhLayer
-    - id: metalLayer
-      title1: NEXT-GEN PHYSCIAL NETWORK, 
-      title2: COMPUTE, STORAGE, ACCLERATORS
+    - id: acceleratorsLayer
+      label: ACCELERATORS
       layer_def: metalLayer
+    - id: metalLayer
+      label: NEXT-GEN PHYSICAL NETWORK, COMPUTE, STORAGE
+      layer_def: metalLayer
+      
       
