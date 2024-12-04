@@ -124,6 +124,11 @@
 
 
     {% for layer in layers %}
+    {% if ribbon_layer == layer.id %}
+    {% set layer_width = 260 %}
+    {% else %}
+    {% set layer_width = 201 %}
+    {% endif %}
 
     <g id="{{ layer.id }}Shape" transform="translate(80, {{ loop.index | int * layer_space + layer_start }})">
         <linearGradient id="{{ layer.layer_def }}GradientStops">
@@ -133,35 +138,29 @@
         <linearGradient id="{{ layer.layer_def }}Gradient" xlink:href="#{{ layer.layer_def }}GradientStops"
             x1="1022" y1="811" x2="1017" y2="641"
             gradientTransform="matrix(0.7,0,0,0.7,-554,-507)" gradientUnits="userSpaceOnUse"/>
-        <!--<rect id="{{ layer.layer_def }}TextDouble1" x="364" y="50" width="230" height="32" />-->
-        <!--<rect id="{{ layer.layer_def }}TextDouble2" x="369" y="50" width="216" height="32" />-->
-        <!--<rect id="{{ layer.layer_def }}TextSingle" x="364" y="50" width="178" height="32" />-->
         <rect id="rect{{ layer.id }}" class="layerSkewBox"
             style="fill:url(#{{ layer.layer_def }}Gradient);"
-            width="201" height="54" x="33" y="0.5" ry="0"
+            width="{{ layer_width }}" height="54" x="33" y="0.5" ry="0"
             transform="matrix(1,0,-0.6,0.8,0,0)" />
         <text id="{{ layer.id }}Text" class="layerText" style="shape-inside:url(#{{ layer.id }}TextSingle);"
             x="0" y="0" transform="translate(0,0)">{{ layer.label }}</text>
-
-        <!--<text id="{{ layer.id }}Text" class="layerText" style="shape-inside:url(#{{ layer.layer_def }}TextSingle);"-->
-        <!--    x="0" y="0" transform="translate(-340,-33)">-->
-        <!--    <tspan x="0" y="20" id="{{ layer.id }}SingleTspanBox">-->
-        <!--        <tspan id="{{ layer.id }}TspanSingle" class="layerTextTspan">{{ layer.label }}</tspan>-->
-        <!--    </tspan>-->
-        <!--</text>-->
-        <!--<text id="textA{{ layer.id }}" class="layerText" style="shape-inside:url(#{{ layer.layer_def }}TextDouble1);"-->
-        <!--    x="124" y="0" transform="translate(-355,-42)">-->
-        <!--    <tspan x="401" y="60" id="{{ layer.id }}TspanDouble1Box">-->
-        <!--        <tspan id="{{ layer.id }}TspanDouble1" class="layerTextTspan">{{ layer.text1 }}</tspan>-->
-        <!--    </tspan>-->
-        <!--</text>-->
-        <!--<text id="textB{{ layer.id }}" class="layerText" style="shape-inside:url(#{{ layer.layer_def }}TextDouble2);"-->
-        <!--    x="124" y="0" transform="translate(-365,-27)">-->
-        <!--    <tspan x="446" y="60" id="{{ layer.id }}TspanDouble2Box" >-->
-        <!--        <tspan id="{{ layer.id }}TspanDouble2" class="layerTextTspan">{{ layer.text2 }}</tspan>-->
-        <!--    </tspan>-->
-        <!--</text>-->
     </g>
+    
+    {% if ribbon_layer == layer.id %}
+    <g id="{{ layer.id }}Ribbon" transform="translate(373,{{ loop.index | int * layer_space + layer_start }}) rotate(90)">
+        <linearGradient id="{{ layer.layer_def }}RibbonGradientStops">
+          <stop id="{{ layer.layer_def }}GradientFront" class="stop" offset="0" />
+          <stop id="{{ layer.layer_def }}GradientBack" class="stop" offset="1" />
+        </linearGradient>
+        <linearGradient id="{{ layer.layer_def }}RibbonGradient" xlink:href="#{{ layer.layer_def }}RibbonGradientStops"
+            x1="1022" y1="811" x2="1017" y2="641"
+            gradientTransform="matrix(0.7,0,0,0.7,-554,-507)" gradientUnits="userSpaceOnUse"/>
+        <rect id="recttest" class="layerSkewBox"
+            style="fill:url(#{{ layer.layer_def }}RibbonGradient);"
+            width="1000" height="54" x="0" y="0.5" ry="0"
+            transform="matrix(1,0,0.8,0.6,0,0)" />
+    </g>
+    {% endif %}
 
     {% endfor %}
     

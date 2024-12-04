@@ -23,6 +23,8 @@ layer_defs:
         
 # for every 30 title chars move the text up __ pixels
 
+ribbon_layer: selfServiceApi
+
 layers:
     - id: workloadLayer
       label: TENANT WORKLOADS
