@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 {% set width = "8.5in" %}
 {% set height = "11in" %}
+{% set px_width = 816 %}
+{% set px_height = 1056 %}
+{% set header_height = 0 %}
+{% set footer_height = 120 %}
+{% set layer_start = 150 %}
 {% set layer_height = 45 %}
-{% set layer_space = 75 %}
-{% set layer_start = 100 %}
+{% set layer_space = 65 %}
 {% set connect_top_front = layer_start + layer_space + layer_height %}
 {% set connect_top_back = layer_start + layer_space %}
 {% set connect_btm_front = connect_top_front + (layer_space * (layers | length - 1)) %}
 {% set connect_btm_back = connect_top_back + (layer_space * (layers | length - 1)) %}
+{% set ribbon_left = 367 %}
 
 <!--TODO 
 1. calculate line height / top / bottom based on count of layers
@@ -20,7 +25,7 @@
    id="gen8diagram-letter"
    width="{{ width }}"
    height="{{ height }}"
-   viewBox="0 0 816 1056"
+   viewBox="0 0 {{ px_width }} {{ px_height }}"
    version="1.1">
   <style>
     .title {
@@ -56,7 +61,7 @@
         stroke-dasharray:2.5,2.5;
     }
     .layerText {
-        font-size:10px;
+        font-size:11px;
         text-align:start;
         writing-mode:lr-tb;
         direction:ltr;
@@ -99,24 +104,14 @@
 
     {% for layer in layers %}
     {% set layer_def = layer_defs[layer.layer_def] %}
-    {% if (layer.label | length) < 40 %}
-    {% set text_top = 15 %}
-    {% set text_height = 15 %}
-    {% elif (layer.label | length) < 60 %}
-    {% set text_top = 10 %}
-    {% set text_height = 30 %}
-    {% else %}
-    {% set text_top = 5 %}
-    {% set text_height = 60 %}
-    {% endif %}
-    <rect id="{{ layer.id }}TextSingle" x="32" y="{{ text_top }}" width="160" height="{{ text_height }}" />
+    <rect id="{{ layer.id }}TextSingle" x="32" y="2" width="155" height="14" />
     {% endfor %}
      
     <rect id="testDefTextSingle" x="26" y="5" width="180" height="45" />
   </defs>
 
   <g id="page">
-    <rect id="marginLeft" class="margin" width="{{ page.margin_width }}" height="1056" x="0" y="0" />
+    <rect id="marginLeft" class="margin" width="{{ page.margin_width }}" height="{{ px_height - footer_height - header_height + 44 }}" x="0" y="{{ header_height }}" />
     <!--<rect id="marginBottom" class="margin" width="816" height="112" x="0" y="946" />-->
 
     <line x1="115" y1="{{ connect_top_back }}" x2="115" y2="{{ connect_btm_back }}" class="vertLine" />
@@ -125,7 +120,7 @@
 
     {% for layer in layers %}
     {% if ribbon_layer == layer.id %}
-    {% set layer_width = 260 %}
+    {% set layer_width = 254 %}
     {% else %}
     {% set layer_width = 201 %}
     {% endif %}
@@ -142,12 +137,26 @@
             style="fill:url(#{{ layer.layer_def }}Gradient);"
             width="{{ layer_width }}" height="54" x="33" y="0.5" ry="0"
             transform="matrix(1,0,-0.6,0.8,0,0)" />
-        <text id="{{ layer.id }}Text" class="layerText" style="shape-inside:url(#{{ layer.id }}TextSingle);"
-            x="0" y="0" transform="translate(0,0)">{{ layer.label }}</text>
+        
+        {% if (layer.labels | length) == 3 %}
+        {% set label_top = 1 %}
+        {% elif (layer.labels | length) == 2 %}
+        {% set label_top = 7 %}
+        {% elif (layer.labels | length) == 1 %}
+        {% set label_top = 14 %}
+        {% endif %}
+        
+        {% for label in layer.labels %}
+        {% set label_text_top = label_top + (loop.index - 1) * 13 %}
+        <text id="{{ layer.id }}{{ loop.index }}LabelText" class="layerText" style="shape-inside:url(#{{ layer.id }}TextSingle);"
+            x="0" y="0" transform="translate(0, {{ label_text_top }})">{{ label }}</text>
+        {% endfor %}
     </g>
     
     {% if ribbon_layer == layer.id %}
-    <g id="{{ layer.id }}Ribbon" transform="translate(373,{{ loop.index | int * layer_space + layer_start }}) rotate(90)">
+    {% set ribbon_top = (loop.index | int * layer_space + layer_start) %}
+    {% set ribbon_height = (px_height - footer_height - ribbon_top) %}
+    <g id="{{ layer.id }}Ribbon" transform="translate({{ ribbon_left }},{{ ribbon_top }}) rotate(90)">
         <linearGradient id="{{ layer.layer_def }}RibbonGradientStops">
           <stop id="{{ layer.layer_def }}GradientFront" class="stop" offset="0" />
           <stop id="{{ layer.layer_def }}GradientBack" class="stop" offset="1" />
@@ -157,46 +166,30 @@
             gradientTransform="matrix(0.7,0,0,0.7,-554,-507)" gradientUnits="userSpaceOnUse"/>
         <rect id="recttest" class="layerSkewBox"
             style="fill:url(#{{ layer.layer_def }}RibbonGradient);"
-            width="1000" height="54" x="0" y="0.5" ry="0"
+            width="{{ ribbon_height }}" height="54" x="0" y="0.5" ry="0"
             transform="matrix(1,0,0.8,0.6,0,0)" />
+    </g>
+    <g id="{{ layer.id }}BottomRibbon" transform="translate({{ ribbon_left - 33 }}, {{ px_height - footer_height  }})">
+        <linearGradient id="{{ layer.layer_def }}GradientStops">
+          <stop id="{{ layer.layer_def }}GradientFront" class="stop" offset="0" />
+          <stop id="{{ layer.layer_def }}GradientBack" class="stop" offset="1" />
+        </linearGradient>
+        <linearGradient id="{{ layer.layer_def }}BottomRibbonGradient" xlink:href="#{{ layer.layer_def }}GradientStops"
+            x1="1022" y1="811" x2="1017" y2="641"
+            gradientTransform="matrix(0.7,0,0,0.7,-554,-507)" gradientUnits="userSpaceOnUse"/>
+        <rect id="rect{{ layer.id }}BottomRibbon" class="layerSkewBox"
+            style="fill:url(#{{ layer.layer_def }}BottomRibbonGradient);"
+            width="800" height="54" x="33" y="0.5" ry="0"
+            transform="matrix(1,0,-0.6,0.8,0,0)" />
     </g>
     {% endif %}
 
     {% endfor %}
-    
-    <!--<g id="testShape" transform="translate(80,100)">-->
-    <!--    <linearGradient id="testDefGradientStops">-->
-    <!--      <stop id="testDefGradientFront" class="stop" offset="0" />-->
-    <!--      <stop id="testDefGradientBack" class="stop" offset="1" />-->
-    <!--    </linearGradient>-->
-    <!--    <linearGradient id="testDefGradient" xlink:href="#testDefGradientStops"-->
-    <!--        x1="1022" y1="811" x2="1017" y2="641"-->
-    <!--        gradientTransform="matrix(0.7,0,0,0.7,-554,-507)" gradientUnits="userSpaceOnUse"/>-->
-    <!--    <rect id="recttest" class="layerSkewBox"-->
-    <!--        style="fill:url(#testDefGradient);"-->
-    <!--        width="260" height="54" x="33" y="0.5" ry="0"-->
-    <!--        transform="matrix(1,0,-0.6,0.8,0,0)" />-->
-    <!--    <text id="texttest" class="layerText" style="shape-inside:url(#testDefTextSingle);"-->
-    <!--        x="0" y="0" transform="translate(0,0)">ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF</text>-->
 
-    <!--</g>-->
     
     <line x1="82" y1="{{ connect_top_front }}" x2="82" y2="{{ connect_btm_front }}" class="vertLine" />
     <line x1="280" y1="{{ connect_top_front }}" x2="280" y2="{{ connect_btm_front }}" class="vertLine" />
 
-    <!--<g id="testShape" transform="translate(373,66) rotate(90)">-->
-    <!--    <linearGradient id="testDefGradientStops">-->
-    <!--      <stop id="testDefGradientFront" class="stop" offset="0" />-->
-    <!--      <stop id="testDefGradientBack" class="stop" offset="1" />-->
-    <!--    </linearGradient>-->
-    <!--    <linearGradient id="testDefGradient" xlink:href="#testDefGradientStops"-->
-    <!--        x1="1022" y1="811" x2="1017" y2="641"-->
-    <!--        gradientTransform="matrix(0.7,0,0,0.7,-554,-507)" gradientUnits="userSpaceOnUse"/>-->
-    <!--    <rect id="recttest" class="layerSkewBox"-->
-    <!--        style="fill:url(#testDefGradient);"-->
-    <!--        width="1000" height="54" x="33" y="0.5" ry="0"-->
-    <!--        transform="matrix(1,0,0.82,0.6,0,0)" />-->
-    <!--</g>-->
     
   </g>
 

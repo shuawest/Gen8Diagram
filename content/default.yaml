@@ -23,39 +23,57 @@ layer_defs:
         
 # for every 30 title chars move the text up __ pixels
 
-ribbon_layer: selfServiceApi
+ribbon_layer: workloadLayer
 
 layers:
     - id: workloadLayer
-      label: TENANT WORKLOADS
+      labels: 
+      - TENANT WORKLOADS
       style: title
       layer_def: tentantLayer
     - id: selfServiceApi
-      label: SELF-SERVICE EXPERIENCE &amp; API
+      labels: 
+      - SELF-SERVICE EXPERIENCE 
+      - '&amp; API'
       layer_def: firmLayer
     - id: controlLayer
-      label: RISK, COMPLIANCE, BILLING, OBSERVABILITY
+      labels: 
+      - RISK, COMPLIANCE, 
+      - BILLING, OBSERVABILITY
       layer_def: firmLayer
     - id: identityLayer
-      label: IDENTITY, INVENTORY, POLICY, FIRM CLOUD API
+      labels: 
+      - INVENTORY, IDENTITY, POLICY, 
+      - FIRM CLOUD API
       layer_def: firmLayer
     - id: vpcLayer
-      label: VIRTUAL PRIVATE CLOUDS, SEGMENTATION, POLICY CONTROL  
+      labels: 
+      - VPC, SEGMENTATION, 
+      - POLICY ENFORCEMENT  
       layer_def: rhLayer
     - id: sdsLayer
-      label: BLOCK, FILE, OBJECT STORAGE AS A SERVICE
+      labels: 
+      - BLOCK, FILE, OBJECT 
+      - STORAGE AS A SERVICE
       layer_def: rhLayer
     - id: sdnLayer
-      label: SOFTWARE DEFINED NETWORK
+      labels: 
+      - SOFTWARE DEFINED NETWORK
       layer_def: rhLayer
     - id: sdnLayer
-      label: KUBERNETES BASED VIRTUALIZATION &amp; CONTAINERS
+      labels: 
+      - KUBERNETES BASED VIRTUALIZATION 
+      - '&amp; CONTAINERS'
       layer_def: rhLayer
     - id: acceleratorsLayer
-      label: ACCELERATORS
+      labels: 
+      - ACCELERATORS
       layer_def: metalLayer
     - id: metalLayer
-      label: NEXT-GEN PHYSICAL NETWORK, COMPUTE, STORAGE
+      labels: 
+      - NEXT-GEN PHYSICAL
+      - COMPUTE, 
+      - NETWORK, STORAGE
       layer_def: metalLayer
       
       
