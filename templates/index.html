@@ -23,6 +23,10 @@
                 <div class="pf-c-title pf-m-2xl" style="display: flex; align-items: center;">
                     <img src="{{ url_for('static', filename='layers.png') }}" height="40px" width="40px" alt="Icon" class="header-icon" />
                     <span style="margin-left: 8px;">Gen8Diagram - Template Based Diagram Generator</span>
+                    <div  style="width: 50%;">&nbsp;</div>
+                    <div style="float: right;">
+                        <button id="render-btn" type="button" class="pf-c-button pf-m-primary" style="width:200px;">Render</button>
+                    </div>
                 </div>
             </div>
         </header>
@@ -30,9 +34,9 @@
             <div class="left-pane">
                 <form id="form" class="pf-c-form">
                     <!-- Render Button -->
-                    <div class="pf-c-form__group">
+                    <!-- <div class="pf-c-form__group">
                         <button id="render-btn" type="button" class="pf-c-button pf-m-primary" style="width: 100%;">Render</button>
-                    </div>
+                    </div> -->
     
                     <!-- YAML and Template Editors -->
                     <div class="pf-c-form__group">

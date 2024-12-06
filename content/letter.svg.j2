@@ -109,7 +109,7 @@
         font-variant:normal;
         font-weight:normal;
         font-stretch:normal;
-        font-size:14.6667px;
+        font-size:15px;
         line-height:1;
         font-family:'Red Hat Text';
         text-align:left;
@@ -119,16 +119,11 @@
         direction:ltr;
         text-anchor:middle;
         white-space:pre;
-        inline-size:421.374;
-        fill:#cccccc;
+        inline-size:412;
+        fill:#000;
         stroke:none;
         stroke-width:0.288;
         stroke-dasharray:0.360001, 0.360001;
-    }
-    .contentBodyTspan {
-        text-align:start;
-        text-anchor:start;
-        fill:#000000;
     }
     .bcrumbBox {
         fill:#ddd;
@@ -281,32 +276,22 @@
   </g>
 
   <g id="breadcrumbGroup"> 
-    <rect id="bcrumbBoxID" class="bcrumbBox" x="334" y="0" width="62" height="15" />
-    <rect id="bcrumbBoxLevel1" class="bcrumbBox" x="400" y="0" width="122" height="15" />
-    <rect id="bcrumbBoxLevel2" class="bcrumbBox" x="678" y="0" width="116" height="15" />
-    <rect id="bcrumbBoxLevel3" class="bcrumbBox" x="540" y="0" width="113" height="15" />
+    <rect id="bcrumbBoxID" class="bcrumbBox" x="336" y="0" width="58" height="16" />
+    <rect id="bcrumbBoxLevel1" class="bcrumbBox" x="400" y="0" width="120" height="16" />
+    <rect id="bcrumbBoxLevel2" class="bcrumbBox" x="678" y="0" width="120" height="16" />
+    <rect id="bcrumbBoxLevel3" class="bcrumbBox" x="540" y="0" width="120" height="16" />
     
-    <path id="bcrumbChevronLeftLevel1" class="bcrumbChevronLeft"
-      d="m 534.19998,7.5519116 -12.78483,6.8690634 -2.61642,-0.03195 0.0601,-14.01172818 2.54739,0.0298316 z"
-       />
-    <path id="bcrumbChevronRightLevel1" class="bcrumbChevronRight"
-      d="M 542.53798,14.425885 526.94276,14.38489 539.82996,7.5917651 526.8719,0.34682968 542.636,0.41408096 Z"
-       />
-    <path id="bcrumbChevronLeftLevel2" class="bcrumbChevronLeft"
-      d="m 669.4624,7.5940833 -12.78483,6.8690627 -2.61642,-0.03195 0.0601,-14.01172754 2.54739,0.029832 z"
-       />
-    <path id="bcrumbChevronRightLevel2" class="bcrumbChevronRight"
-      d="m 677.8004,14.468056 -15.59522,-0.041 12.8872,-6.7931242 -12.95806,-7.24493044 15.7641,0.067251 z"
-       />
+    <path id="bcrumbChevronLeftLevel1" class="bcrumbChevronLeft" 
+      transform="translate(512,0)" d="m 16,8 -8,8 -8,0 0,-16 8,0 z" />
+    <path id="bcrumbChevronRightLevel1" class="bcrumbChevronRight" 
+      transform="translate(512,0)" d="M 32,16 16,16 24,8 16,0 32,0 Z" />
+    <path id="bcrumbChevronLeftLevel2" class="bcrumbChevronLeft" 
+      transform="translate(652,0)" d="m 16,8 -8,8 -8,0 0,-16 8,0 z" />
+    <path id="bcrumbChevronRightLevel2" class="bcrumbChevronRight" 
+      transform="translate(652,0)" d="M 32,16 16,16 24,8 16,0 32,0 Z" />
     <path id="bcrumbChevronLeftLevel3" class="bcrumbChevronLeft"
-      d="m 803.80198,7.5851427 -12.78483,6.8690623 -2.61642,-0.03195 0.0601,-14.01172718 2.54739,0.029832 z"
-       />
+      transform="translate(798,0)" d="m 16,8 -8,8 -8,0 0,-16 8,0 z" />
     
-    <path id="bcrumbChevronLeftSandbox" class="bcrumbChevronLeft" style="fill:#aaa;"
-        d="m 534,8 -14,7 -3,-0 0,-14 3,0 z" /> 
-    <path id="bcrumbChevronRightSandbox" class="bcrumbChevronRight" style="fill:#aaa;"
-        d="M 543,14 527,14 540,8 527,0 543,0 Z" />    
-      
     <text id="bcrumbTextID" class="bcrumbText"
       x="340" y="10"><tspan id="bcrumbTspanID" class="bcrumbTspan"
         x="340" y="10">{{ content[0].id }}</tspan></text>
@@ -322,9 +307,7 @@
   </g>
 
   <g id="titleQuoteGroup"> 
-    <text id="titleQuoteText" class="titleQuoteText"
-     x="391.47098" y="64.804321"
-     transform="translate(189.12281,-1.3225371)">
+    <text id="titleQuoteText" class="titleQuoteText" x="590" y="65" >
      <tspan id="titleQuoteTspan" class="titleQuoteTspan">{{ content[0].title }}</tspan>
    </text>
   <!--<text-->
@@ -355,10 +338,8 @@
   </g>
 
   <g id="contentBody">
-    <text id="contentBodyText" class="contentBodyText" x="390" y="200"
-     transform="translate(209.62213)">
-        <tspan  id="contentBodyTspan" class="contentBodyTspan" x="379.34781" y="184.8663"
-            >{{ content[0].body }}</tspan>
+    <text id="contentBodyText" class="contentBodyText" x="592" y="200">
+        <tspan id="contentBodyTspan" class="contentBodyTspan">{{ content[0].body }}</tspan>
     </text>
   </g>
 
