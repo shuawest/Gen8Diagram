@@ -9,10 +9,10 @@
 {% set layer_end = 875 %}
 {% set layer_height = 45 %}
 {% set layer_space = ((layer_end - layer_start)) / (layers | length) %}
-{% set connect_top_front = layer_start + layer_space + layer_height %}
-{% set connect_top_back = layer_start + layer_space %}
+{% set connect_top_front = layer_start + layer_space + layer_height - 1 %}
+{% set connect_top_back = layer_start + layer_space + 1 %}
 {% set connect_btm_front = connect_top_front + (layer_space * (layers | length - 1)) %}
-{% set connect_btm_back = connect_top_back + (layer_space * (layers | length - 1)) %}
+{% set connect_btm_back = connect_top_back + (layer_space * (layers | length - 1)) + 1 %}
 {% set ribbon_left = 367 %}
 
 <!--TODO 
@@ -142,25 +142,19 @@
         font-variant:normal;
         font-weight:normal;
         font-stretch:normal;
-        font-size:8px;
+        font-size:9px;
         line-height:1;
         font-family:'Red Hat Text';
-        text-align:center;
         letter-spacing:0.23px;
         word-spacing:0.05px;
         writing-mode:lr-tb;
         direction:ltr;
-        text-anchor:middle;
-        fill:#cccccc;
+        text-anchor:start;
+        text-align:start;
+        fill:#000000;
         stroke:none;
         stroke-width:0.288;
         stroke-dasharray:0.360001, 0.360001;
-    }
-    .bcrumbTspan {
-        font-size:8px;
-        text-align:start;
-        text-anchor:start;
-        fill:#000000;
     }
     
     {% for layer_def_name in layer_defs %}
@@ -292,52 +286,19 @@
     <path id="bcrumbChevronLeftLevel3" class="bcrumbChevronLeft"
       transform="translate(798,0)" d="m 16,8 -8,8 -8,0 0,-16 8,0 z" />
     
-    <text id="bcrumbTextID" class="bcrumbText"
-      x="340" y="10"><tspan id="bcrumbTspanID" class="bcrumbTspan"
-        x="340" y="10">{{ content[0].id }}</tspan></text>
-    <text id="bcrumbTextLevel1" class="bcrumbText"
-      x="410" y="10"><tspan id="bcrumbTspanLevel1" class="bcrumbTspan"
-        x="410" y="10">{{ content[0].level1 }}</tspan></text>
-    <text id="bcrumbTextLevel2" class="bcrumbText"
-      x="550" y="10"><tspan id="bcrumbTspanLevel2" class="bcrumbTspan" 
-        x="550" y="10">{{ content[0].level2 }}</tspan></text>
-    <text id="bcrumbTextLevel3" class="bcrumbText" 
-      x="685" y="10"><tspan id="bcrumbTspanLevel3" class="bcrumbTspan" 
-        x="685" y="10">{{ content[0].level3 }}</tspan></text>
+    <text id="bcrumbTextID" class="bcrumbText" x="340" y="11">{{ content[0].id }}</text>
+    <text id="bcrumbTextLevel1" class="bcrumbText" x="410" y="11">{{ content[0].level1 }}</text>
+    <text id="bcrumbTextLevel2" class="bcrumbText" x="546" y="11">{{ content[0].level2 }}</text>
+    <text id="bcrumbTextLevel3" class="bcrumbText" x="685" y="11">{{ content[0].level3 }}</text>
   </g>
 
   <g id="titleQuoteGroup"> 
     <text id="titleQuoteText" class="titleQuoteText" x="590" y="65" >
      <tspan id="titleQuoteTspan" class="titleQuoteTspan">{{ content[0].title }}</tspan>
    </text>
-  <!--<text-->
-  <!--   xml:space="preserve"-->
-  <!--   style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;line-height:1;font-family:'Red Hat Display';-inkscape-font-specification:'Red Hat Display Bold Italic';text-align:center;letter-spacing:0.23px;word-spacing:0.05px;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#1a1a1a;stroke:#000000;stroke-width:0.288;stroke-dasharray:0.360001, 0.360001"-->
-  <!--   x="-805.88245"-->
-  <!--   y="-51.542068"-->
-  <!--   id="text26"-->
-  <!--   transform="rotate(-175.74152)"><tspan-->
-  <!--     sodipodi:role="line"-->
-  <!--     id="tspan26"-->
-  <!--     x="-805.76746"-->
-  <!--     y="-51.542068"-->
-  <!--     style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;font-family:'Apple Chancery';-inkscape-font-specification:'Apple Chancery Bold Italic'">&quot;</tspan></text>-->
-  <!--<text-->
-  <!--   xml:space="preserve"-->
-  <!--   style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;line-height:1;font-family:'Red Hat Display';-inkscape-font-specification:'Red Hat Display Bold Italic';text-align:center;letter-spacing:0.23px;word-spacing:0.05px;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#1a1a1a;stroke:#000000;stroke-width:0.288;stroke-dasharray:0.360001, 0.360001"-->
-  <!--   x="364.89383"-->
-  <!--   y="77.388092"-->
-  <!--   id="text26-7"-->
-  <!--   transform="rotate(0.07767826)"><tspan-->
-  <!--     sodipodi:role="line"-->
-  <!--     id="tspan26-3"-->
-  <!--     x="365.00882"-->
-  <!--     y="77.388092"-->
-  <!--     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64px;font-family:'Apple Chancery';-inkscape-font-specification:'Apple Chancery'">&quot;</tspan></text>-->
-  
   </g>
 
-  <g id="contentBody">
+  <g id="contentBodyGroup">
     <text id="contentBodyText" class="contentBodyText" x="592" y="200">
         <tspan id="contentBodyTspan" class="contentBodyTspan">{{ content[0].body }}</tspan>
     </text>
