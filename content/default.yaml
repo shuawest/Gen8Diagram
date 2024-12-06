@@ -23,7 +23,7 @@ layer_defs:
         
 # for every 30 title chars move the text up __ pixels
 
-ribbon_layer: workloadLayer
+ribbon_layer: controlLayer
 
 layers:
     - id: workloadLayer
@@ -48,8 +48,12 @@ layers:
       layer_def: firmLayer
     - id: vpcLayer
       labels: 
-      - VPC, SEGMENTATION, 
-      - POLICY ENFORCEMENT  
+      - VPC, 
+      - SEGMENTATION 
+      layer_def: rhLayer
+    - id: policyLayer
+      labels: 
+      - POLICY ENFORCEMENT 
       layer_def: rhLayer
     - id: sdsLayer
       labels: 
@@ -58,12 +62,18 @@ layers:
       layer_def: rhLayer
     - id: sdnLayer
       labels: 
-      - SOFTWARE DEFINED NETWORK
+      - SOFTWARE DEFINED 
+      - NETWORK
       layer_def: rhLayer
     - id: sdnLayer
       labels: 
-      - KUBERNETES BASED VIRTUALIZATION 
-      - '&amp; CONTAINERS'
+      - KUBERNETES BASED
+      - 'VIRT &amp; CONTAINERS'
+      layer_def: rhLayer
+    - id: osLayer
+      labels: 
+      - RED HAT
+      - COREOS LINUX
       layer_def: rhLayer
     - id: acceleratorsLayer
       labels: 
@@ -75,5 +85,36 @@ layers:
       - COMPUTE, 
       - NETWORK, STORAGE
       layer_def: metalLayer
+      
+content: 
+    - id: PCP073 
+      level1: Principles
+      level2: Governance
+      level3: Encapsulation
+      title: Provide abstraction at higher levels of the stack to provide long-term supported models, and further control at course gained consumption at lower levels.
+      body: 
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
+        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
+        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
+        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt 
+        in culpa qui officia deserunt mollit anim id est laborum.
+        
+        
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
+        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
+        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
+        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt 
+        in culpa qui officia deserunt mollit anim id est laborum.
+        
+        
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
+        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
+        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
+        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt 
+        in culpa qui officia deserunt mollit anim id est laborum.
+
       
       
